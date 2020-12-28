@@ -1,4 +1,6 @@
 #include <Ethernet.h>
+#include <SD.h> 
+
 char code = ""
 int local = 0
 
@@ -9,22 +11,29 @@ void setup() {
     pinMode(13, OUTPUT);
     pinMode(12, OUTPUT);
     pinMode(11, INPUT);
+    // Leitura SD and Starts DRIVERS
+    Serial.print("Iniciando DRIVERS...");
+
+    if (!SD.begin(4)) {
+      Serial.println("Inicialização falhou!");
+      local = 1
+      while (1);
+    }
+    
+    myFile = SD.open("API-EXECUTE.exe", FILE_WRITE);
+  
+    if (myFile) {
+      Serial.print("Caregando o API-EXECUTE.exe...");
+      myFile.println("Testando: 1, 2, 3.");
+      // close the file:
+      myFile.close();
+      Serial.println("Concluido.");
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println("Erro ao abrir API-EXECUTE.exe");
+    }
 }
 
 void loop() {  
-    // Acionamento do hardware A
-    if digitalWrite(11) == HIGH {
-          digitalWrite(12, HIGH);
-          Serial.println("GENIUS: Hardware (A) foi acionado com sucesso!")
-          delay(9600);
-          digitalWrite(12, LOW);
-     }
-     // Leitura do hospedeiro
-     if analogWrite(0) == HIGH {
-          Serial.println("------------------------------------------------------------")
-          Serial.println("GENIUS: O HOSPEDEIRO reconheceu um valor de ENTRADA         ")
-          Serial.println("GENIUS: Para ejetar a o valor RESET a placa ou insira outro ")
-          Serial.println("------------------------------------------------------------")
-     }
-     
+    
 }
