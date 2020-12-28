@@ -1,7 +1,7 @@
 #include <Ethernet.h>
 #include <SD.h> 
 
-char code = "ETHERNET";
+char code = "ETHERNET.h";
 int local = 0;
 
 void setup() {
