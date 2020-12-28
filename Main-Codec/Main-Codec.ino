@@ -1,8 +1,8 @@
 #include <Ethernet.h>
 #include <SD.h> 
 
-char code = ""
-int local = 0
+char code = "ETHERNET";
+int local = 0;
 
 void setup() {
     // Configurações
@@ -16,21 +16,17 @@ void setup() {
 
     if (!SD.begin(4)) {
       Serial.println("Inicialização falhou!");
-      local = 1
+      local = 1;
       while (1);
     }
     
-    myFile = SD.open("API-EXECUTE.exe", FILE_WRITE);
+    char myFile = Serial;
   
     if (myFile) {
-      Serial.print("Caregando o API-EXECUTE.exe...");
-      myFile.println("Testando: 1, 2, 3.");
-      // close the file:
-      myFile.close();
-      Serial.println("Concluido.");
+        Serial.print("Caregando o API-EXECUTE.exe...");
+        Serial.println("Concluido.");
     } else {
-      // if the file didn't open, print an error:
-      Serial.println("Erro ao abrir API-EXECUTE.exe");
+        Serial.println("Erro ao abrir API-EXECUTE.exe");
     }
 }
 
